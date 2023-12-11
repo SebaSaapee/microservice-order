@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderDTO } from './dto/order.dto';
-import { OrderMSG } from 'src/common/constants';
+import { OrderMSG } from '../common/constants';
 import {MessagePattern, Payload} from '@nestjs/microservices'
 
 
@@ -33,18 +33,17 @@ export class OrderController {
     delete(@Payload('id') id:string){
         return this.orderService.delete(id);
     }
-  //  @Post(':orderId/product/:productId')
-   // async addProduct(
-    //    @Param('orderId') orderId:string,
-     //   @Param('productId') productId:string
-      //  ){
-       // const product = await this.productService.findOne(productId);
-        //if(!product)
-         //   throw new HttpException('Producto not Found', HttpStatus.NOT_FOUND);
-//
-  //      return this.orderService.addProduct(orderId,productId);
-    //}
 
-
-
+    /*
+    @Post(':orderId/product/:productId')
+    async addProduct(
+    @Param('orderId') orderId:string,
+    @Param('productId') productId:string
+    ){
+        const product = await this.productService.findOne(productId);
+        if(!product)
+            throw new HttpException('Producto not Found', HttpStatus.NOT_FOUND);
+        	 return this.orderService.addProduct(orderId,productId);
+    }
+    */
 }
