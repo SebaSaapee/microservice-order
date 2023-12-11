@@ -137,10 +137,10 @@ describe('OrderService', () => {
   });
 
 
-  describe('addProduct', () => {
+  describe('addProducto', () => {
     it('should add a product to an order and return the updated order', async () => {
       const orderId = 'order-id-123';
-      const productId = 'product-id-1';
+      const productoId = 'producto-id-1';
       const updatedOrder: IOrder = {
         _id: orderId,
         fechaDate: new Date(), // Fecha de ejemplo
@@ -156,15 +156,15 @@ describe('OrderService', () => {
         ]
       };
 
-      mockModel.findByIdAndUpdate.mockImplementationOnce(() => ({
-        populate: jest.fn().mockResolvedValue(updatedOrder)
-      }));
+      //Cambia la implementación mock para devolver directamente updatedOrder
+      mockModel.findByIdAndUpdate.mockResolvedValue(updatedOrder);
 
-      const result = await service.addProduct(orderId, productId);
-      expect(mockModel.findByIdAndUpdate).toHaveBeenCalledWith(orderId, { $addToSet: { products: productId } }, { new: true });
+      const result = await service.addProduct(orderId, productoId);
+      expect(mockModel.findByIdAndUpdate).toHaveBeenCalledWith(orderId, { $addToSet: { productos: productoId } }, { new: true });
       expect(result).toEqual(updatedOrder);
     });
   });
+  
   describe('findAll', () => {
     it('should return all orders', async () => {
       const mockOrders: IOrder[] = [
@@ -191,24 +191,14 @@ describe('OrderService', () => {
         }
       ];
 
-      const mockFindPopulate = {
-        populate: jest.fn().mockResolvedValue(mockOrders)
-      };
+    // Simula el método find para devolver mockOrders directamente
+    mockModel.find.mockResolvedValue(mockOrders);
 
-      // Configura el mock para simular el método find
-      mockModel.find.mockReturnValue(mockFindPopulate);
-
-      const result = await service.findAll();
+    const result = await service.findAll();
       expect(result).toEqual(mockOrders);
-
-      // Verifica que se haya llamado al método find
       expect(mockModel.find).toHaveBeenCalled();
-      // Verifica que se haya llamado al método populate del objeto devuelto por find
-      expect(mockFindPopulate.populate).toHaveBeenCalledWith('products');
     });
-
   });
-
-
-
 });
+
+
