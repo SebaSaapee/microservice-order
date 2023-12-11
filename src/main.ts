@@ -8,7 +8,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options:{
       urls:[process.env.AMQP_URL],
-      queue: RabbitMQ.CarritoQueue,
+      queue: RabbitMQ.OrderQueue,
 
     }}
     );

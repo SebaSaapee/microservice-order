@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
-import { CARRITO, PRODUCT, USER } from 'src/common/models/models';
+import { ORDER, PRODUCT, USER } from 'src/common/models/models';
 import { MongooseModule } from '@nestjs/mongoose';
 import { OrderSchema } from './Schema/order.schema';
 import { ProductSchema } from './Schema/product.schema';
@@ -12,7 +12,7 @@ import { ProductSchema } from './Schema/product.schema';
   imports:[
     MongooseModule.forFeatureAsync([
       {
-      name:CARRITO.name,
+      name:ORDER.name,
       useFactory:()=>OrderSchema.plugin(require('mongoose-autopopulate'))
       },
       {

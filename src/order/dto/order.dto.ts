@@ -1,6 +1,4 @@
 
 export class  OrderDTO{
-      
-        readonly fecha: Date
-              
+        readonly fecha: Date   
 }
