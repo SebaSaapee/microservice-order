@@ -4,8 +4,6 @@ import { OrderDTO } from './dto/order.dto';
 import { OrderMSG } from '../common/constants';
 import {MessagePattern, Payload} from '@nestjs/microservices'
 
-
-
 @Controller()
 export class OrderController {
 
@@ -34,16 +32,11 @@ export class OrderController {
         return this.orderService.delete(id);
     }
 
-    /*
-    @Post(':orderId/product/:productId')
-    async addProduct(
-    @Param('orderId') orderId:string,
-    @Param('productId') productId:string
-    ){
-        const product = await this.productService.findOne(productId);
-        if(!product)
-            throw new HttpException('Producto not Found', HttpStatus.NOT_FOUND);
-        	 return this.orderService.addProduct(orderId,productId);
+    @MessagePattern(OrderMSG.ADD_Product)
+    addproducto(@Payload() payload){
+        return this.orderService.addProduct(
+            payload.orderId,
+            payload.productId
+        )
     }
-    */
 }

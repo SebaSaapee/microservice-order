@@ -13,7 +13,6 @@ export enum OrderMSG{
     UPDATE = 'UPDATE_ORDER',
     DELETE = 'DELETE_ORDER',
     ADD_Product = 'ADD_PRODUCTO'
-
 }
 
 

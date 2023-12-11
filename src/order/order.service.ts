@@ -19,7 +19,7 @@ export class OrderService {
         return await newUser.save()    
     }
     async findAll(): Promise<IOrder[]>{
-        return await this.model.find().populate('products')
+        return await this.model.find();
     }
 
     async findOne(id:string): Promise<IOrder>{
@@ -33,6 +33,8 @@ export class OrderService {
         await this.model.findByIdAndDelete(id);
         return {status:HttpStatus.OK,msg:'deleted'}
     }
+    
+    /*
     async addProduct(OrderId:string,productId:string): Promise<IOrder>{
         return await this.model.findByIdAndUpdate(
             OrderId,
@@ -41,7 +43,17 @@ export class OrderService {
         ).populate('products')
     }
 
+    */
+    
     async update2(id: string, orderDTO: OrderDTO): Promise<IOrder> {
         return await this.model.findByIdAndUpdate(id, orderDTO, { new: true }).populate('products');
+    }
+
+    async addProduct(orderId: string, productoId: string): Promise<IOrder> {
+        return await this.model.findByIdAndUpdate(
+            orderId,
+            { $addToSet: { productos: productoId } },
+            { new: true }
+        );
     }
 }
